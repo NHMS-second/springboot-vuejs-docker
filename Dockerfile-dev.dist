@@ -1,0 +1,7 @@
+FROM anapsix/alpine-java:8_server-jre
+RUN mkdir /work
+ADD ./target.tar.gz /work/
+WORKDIR /work
+ENTRYPOINT java -Xms128m -Xmx2g org.springframework.boot.loader.JarLauncher \
+  -XX:+UseG1GC -Dspring.config.location="file:///work/config/application.properties" \
+  > app_running.log 2>&1
